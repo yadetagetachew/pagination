@@ -1,5 +1,3 @@
-
-// Array of student objects
 const data = [
   {
     name: {
