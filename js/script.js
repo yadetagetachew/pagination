@@ -1,8 +1,8 @@
 /* This function will create and insert/append the elements needed to display a "page" of nine students */
-
+ let iteams = 9
 function showPage(list, page) {
-    let start = (page * 9) - 9;
-    let end = page * 9;
+    let start = (page * iteams) - iteams;
+    let end = page * iteams;
 
     let studentData = document.querySelector(".student-list");
 
@@ -27,7 +27,7 @@ function showPage(list, page) {
 /* Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons */
 function pageButtons(list){
-    let numberOfPages = list.length / 9
+    let numberOfPages = Math.ceil(list.length / iteams) 
 
     let paginationElement = document.querySelector('.link-list')
     paginationElement.innerHTML = ""
@@ -38,11 +38,46 @@ function pageButtons(list){
             <button type="button">${i+1}</button>
         </li>`
     }
-}
+    let firstChild = document.querySelector('ul.link-list li:first-child button');
+    firstChild.className = 'active';
+ 
+    paginationElement.addEventListener('click', function(e) {
+       if (e.target.tagName.toLowerCase() === 'button') {
+          let allButtons = document.querySelectorAll("ul.link-list li button");
+          Array.from(allButtons).forEach(function(button) {
+             button.classList.remove('active');
+          })
+          e.target.classList.add('active');
+          let index = parseInt(e.target.innerHTML);
+          showPage(data, index);
+       }
+    })
+ }
+
+
 
 
 
 // Call functions
 showPage(data,1)
 pageButtons(data)
+
+
+// for(let i = 0; i < buttonPage.length; i++){
+//     buttonPage[i].addEventListener("click", changePage)
+// }
+
+// function changePage(){
+//     let pageNum = parseInt(e.target.innerHTML)
+//     buttonPage = document.querySelectorAll('.button')
+
+//     for(i = 0; i < buttonPage.length; i++){
+//         if(i === (pageNum)){
+//             buttonPage[i].classList.add('.active')
+//         }else{
+//             buttonPage[i].classList.remove('.active')
+//         }
+//     }
+// }
+// showPage(data,pageNum)
 
